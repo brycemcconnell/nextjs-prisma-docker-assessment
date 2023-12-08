@@ -14,9 +14,17 @@ datasource db {
 model Batch {
   id    Int     @id @default(autoincrement())
   model String
-  quantity Int
   date DateTime @default(now())
   license_level Int
-  serial_number String @default(uuid())
   comment String?
+  machine_numbers Machine_Number[]
+}
+
+model Machine_Number {
+  id Int @id @default(autoincrement())
+  batch Batch @relation(fields: [batch_id], references: [id])
+  batch_id Int
+  model String
+  date DateTime @default(now())
+  serial_number String @default(uuid())
 }
